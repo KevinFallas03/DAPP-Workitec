@@ -5,14 +5,16 @@ function App() {
   let accounts = [];
 
   async function sendMoney() {
+    var amount =  document.getElementById("amount").value
+    var card =  document.getElementById("card").value
     window.ethereum
       .request({
         method: 'eth_sendTransaction',
         params: [
           {
             from: '0xcd3B766CCDd6AE721141F452C550Ca635964ce71',
-            to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
-            value: '0x29a2241af62c0000',
+            to: card,
+            value: amount,
             gasPrice: '0x09184e72a000',
             gas: '0x5208',
           },
@@ -29,8 +31,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={getAccount} >Enable window.ethereum</button>
-        <button onClick={sendMoney} >Send Eth</button>
+        <form>
+          <h1>Nueva transaccion</h1>
+          <label>Tajeta del estudiante</label>
+          <input id="card" name="card"/>
+          <label>Monto</label>
+          <input id="amount" name="amount" />
+          <button type="submit" onClick={sendMoney} >Realizar transaccion</button>
+          <button type="submit" onClick={getAccount} >Habilitar cuenta</button>
+        </form>
       </header>
     </div>
   );
