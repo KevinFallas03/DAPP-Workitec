@@ -5,24 +5,26 @@ function App() {
   let accounts = [];
 
   async function sendMoney() {
-    var amount =  document.getElementById("amount").value
-    var card =  document.getElementById("card").value
-    window.ethereum
-      .request({
-        method: 'eth_sendTransaction',
-        params: [
-          {
-            from: '0xcd3B766CCDd6AE721141F452C550Ca635964ce71',
-            to: card,
-            value: amount,
-            gasPrice: '0x09184e72a000',
-            gas: '0x5208',
-          },
-        ],
-      })
-      .then((txHash) => console.log(txHash))
-      .catch((error) => console.error);
-  };
+      var amount =  document.getElementById("amount").value
+      var card =  document.getElementById("card").value
+      window.ethereum
+        .request({
+          method: 'eth_sendTransaction',
+          params: [
+            {
+              from: accounts[0],
+              to: card,
+              value: amount,
+              gasPrice: '0x09184e72a000',
+              gas: '0x5208',
+            },
+          ],
+        })
+        .then((txHash) => console.log(txHash))
+        .catch((error) => console.error);
+    
+    
+  }
 
   async function getAccount() {
     accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -37,8 +39,8 @@ function App() {
           <input id="card" name="card"/>
           <label>Monto</label>
           <input id="amount" name="amount" />
-          <button type="submit" onClick={sendMoney} >Realizar transaccion</button>
-          <button type="submit" onClick={getAccount} >Habilitar cuenta</button>
+          <button onClick={sendMoney} >Realizar transaccion</button>
+          {/* <button onClick={getAccount} >Habilitar cuenta</button> */}
         </form>
       </header>
     </div>
