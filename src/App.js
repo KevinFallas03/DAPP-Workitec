@@ -3,8 +3,8 @@ import './App.css';
 
 function App() {
   let accounts = [];
-
   async function sendMoney() {
+      accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       var amount =  document.getElementById("amount").value
       var card =  document.getElementById("card").value
       window.ethereum
@@ -22,8 +22,6 @@ function App() {
         })
         .then((txHash) => console.log(txHash))
         .catch((error) => console.error);
-    
-    
   }
 
   async function getAccount() {
