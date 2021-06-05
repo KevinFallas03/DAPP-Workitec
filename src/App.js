@@ -31,15 +31,22 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <form>
-          <h1>Nueva transaccion</h1>
-          <label>Tajeta del estudiante</label>
-          <input id="card" name="card"/>
-          <label>Monto</label>
-          <input id="amount" name="amount" />
-          <button onClick={sendMoney} >Realizar transaccion</button>
-          {/* <button onClick={getAccount} >Habilitar cuenta</button> */}
-        </form>
+        <h2> WorkiTEC </h2>
+        <div class="form">
+          <div class="title">Nuevo pago</div>
+          <div class="subtitle">Ingresa los datos del estudiante</div>
+          <div class="input-container ic1">
+            <input id="card" class="input" type="text" placeholder=" " />
+            <div class="cut"></div>
+            <label for="card" class="placeholder">Billetera del estudiante</label>
+          </div>
+          <div class="input-container ic2">
+            <input id="lastname" class="input" type="text" placeholder=" " />
+            <div class="cut"></div>
+            <label for="amount" class="placeholder">Monto a debitar en ETH</label>
+          </div>
+          <button type="text" class="submit">Pagar</button>
+        </div>
       </header>
     </div>
   );
