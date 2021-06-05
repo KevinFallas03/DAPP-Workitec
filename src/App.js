@@ -1,10 +1,9 @@
 import './App.css';
-// import { window.ethereum } from 'window.ethereum'
 
 function App() {
   let accounts = [];
   async function sendMoney() {
-      accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      getAccount()
       var amount =  document.getElementById("amount").value
       var card =  document.getElementById("card").value
       window.ethereum
@@ -32,20 +31,20 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h2> WorkiTEC </h2>
-        <div class="form">
-          <div class="title">Nuevo pago</div>
-          <div class="subtitle">Ingresa los datos del estudiante</div>
-          <div class="input-container ic1">
-            <input id="card" class="input" type="text" placeholder=" " />
-            <div class="cut"></div>
-            <label for="card" class="placeholder">Billetera del estudiante</label>
+        <div className="form">
+          <div className="title">Nuevo pago</div>
+          <div className="subtitle">Ingresa los datos del estudiante</div>
+          <div className="input-container ic1">
+            <input id="card" className="input" type="text" placeholder=" " />
+            <div className="cut"></div>
+            <label htmlFor="card" className="placeholder">Billetera del estudiante</label>
           </div>
-          <div class="input-container ic2">
-            <input id="lastname" class="input" type="text" placeholder=" " />
-            <div class="cut"></div>
-            <label for="amount" class="placeholder">Monto a debitar en ETH</label>
+          <div className="input-container ic2">
+            <input id="amount" className="input" type="text" placeholder=" " />
+            <div className="cut"></div>
+            <label htmlFor="amount" className="placeholder">Monto a debitar en ETH</label>
           </div>
-          <button type="text" class="submit">Pagar</button>
+          <button type="text" onClick={sendMoney} className="submit">Pagar</button>
         </div>
       </header>
     </div>
