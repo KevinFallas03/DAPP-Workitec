@@ -29,7 +29,8 @@ function App() {
     eth = usd*0.00036;
     var w = wei
     commisionWei = w*0.10
-    document.getElementById("p1").innerHTML = colones+'CRC = '+usd+'USD = '+eth+'ETH \n *Comision: '+commision+'CRC';
+    document.getElementById("p1").innerHTML = colones+'CRC = '+usd+'USD = '+eth+'ETH';
+    document.getElementById("p2").innerHTML = '*Comision: '+commision+'CRC';
   }
   async function getComission(){
     var amount = (commisionWei).toString(16);
@@ -47,7 +48,6 @@ function App() {
         ],
       })
       .then((txHash) => {
-        alert('Hubo un erro, lo sentimos');
         console.log(txHash)})
       .catch((error) => console.error);
   }
@@ -69,7 +69,6 @@ function App() {
           ],
         })
         .then((txHash) => {
-          alert('Hubo un erro, lo sentimos');
           console.log(txHash)})
         .catch((error) => console.error);
   }
@@ -108,7 +107,9 @@ function App() {
             <div className="cut"></div>
             <label htmlFor="amount" className="placeholder">Monto a debitar en colones</label>
           </div>
-          <small id="p1">{ colones+'CRC = '+usd+'USD = '+eth+'ETH \n *Comision: '+commision+'CRC' }</small>
+          <small id="p1">{ colones+'CRC = '+usd+'USD = '+eth+'ETH'  }</small>
+          <br></br>
+          <small id="p2">{ '*Comision: '+commision+'CRC' }</small>
           <button type="text" onClick={sendMoney} className="submit">Pagar</button>
         </div>
       </header>
