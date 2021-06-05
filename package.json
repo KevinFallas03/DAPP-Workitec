@@ -14,7 +14,10 @@
     "hardhat": "^2.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-native-modal-dropdown": "git+https://github.com/siemiatj/react-native-modal-dropdown.git",
     "react-scripts": "4.0.3",
+    "react-select": "^4.3.1",
+    "react-simple-dropdown": "^3.2.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
