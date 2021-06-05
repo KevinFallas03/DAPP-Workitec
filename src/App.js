@@ -43,19 +43,7 @@ function App() {
           ],
         })
         .then((txHash) => {
-          console.log(txHash);
-          window.ethereum
-        .request({
-          method: 'eth_getTransactionByHash',
-          params: [txHash],
-          })
-          .then((txHash) => {
-            console.log(txHash);
-          
-        })
-        .catch((error) => console.error);
-
-        })
+          console.log(txHash)})
         .catch((error) => console.error);
   }
 
