@@ -2,6 +2,10 @@ import './App.css';
 import Select from 'react-select'
 
 function App() {
+  var colones = 0;
+  var usd = 0;
+  var wei = 0;
+  var eth = 0;
   let accounts = [];
   const options = [
     { value: '0x14dc79964da2c08b23698b3d3cc7ca32193d9955', label: 'Esteban Madrigal' },
@@ -14,9 +18,17 @@ function App() {
   function handleChange(selectedOption){
     card = selectedOption.value
   };
+  function recalculate(){
+    colones = parseInt(document.getElementById("amount").value);
+    usd = colones*0.0016;
+    wei = 366272203455340*usd;
+    eth = usd*0.00036;
+    document.getElementById("p1").innerHTML = colones+'CRC = '+usd+'USD = '+eth+'ETH' ;
+  }
   async function sendMoney() {
       getAccount()
-      var amount =  document.getElementById("amount").value
+      colones = parseInt(document.getElementById("amount").value);
+      var amount = (wei).toString(16);
       window.ethereum
         .request({
           method: 'eth_sendTransaction',
@@ -24,13 +36,26 @@ function App() {
             {
               from: accounts[0],
               to: card,
-              value: amount,
+              value: '0x'+amount,
               gasPrice: '0x09184e72a000',
               gas: '0x5208',
             },
           ],
         })
-        .then((txHash) => console.log(txHash))
+        .then((txHash) => {
+          console.log(txHash);
+          window.ethereum
+        .request({
+          method: 'eth_getTransactionByHash',
+          params: [txHash],
+          })
+          .then((txHash) => {
+            console.log(txHash);
+          
+        })
+        .catch((error) => console.error);
+
+        })
         .catch((error) => console.error);
   }
 
@@ -64,12 +89,12 @@ function App() {
           <Select onChange={handleChange} styles={customStyles} options={options} />
           </div>
           <div className="input-container ic2">
-            <input id="amount" className="input" type="text" placeholder=" " />
+            <input onChange={recalculate} id="amount" className="input" type="text" placeholder=" " />
             <div className="cut"></div>
-            <label htmlFor="amount" className="placeholder">Monto a debitar</label>
+            <label htmlFor="amount" className="placeholder">Monto a debitar en colones</label>
           </div>
+          <small id="p1">{ colones+'CRC = '+usd+'USD = ETH'+eth }</small>
           <button type="text" onClick={sendMoney} className="submit">Pagar</button>
-          
         </div>
       </header>
     </div>
